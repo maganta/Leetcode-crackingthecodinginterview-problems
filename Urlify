@@ -1,3 +1,4 @@
+public class Replace{
 public String urlify(char[] str, int truelength){
     int spaces = 0;
     for(int i =0; i<truelength; i++){
@@ -5,14 +6,14 @@ public String urlify(char[] str, int truelength){
             spaces++;
         }
     }
-    
     int index = truelength + 2*spaces -1;
     
-     if(truelength -1 == index){
-        return Arrays.toString(str);
+     if(spaces == 0){
+        return new String(str);
+
     }
     
-    for(int i = truelength-1; i>=0; i++){
+    for(int i = truelength-1; i>=0; i--){
         if(str[i]== ' '){
             str[index]= '0';
             str[index-1] = '2';
@@ -22,6 +23,15 @@ public String urlify(char[] str, int truelength){
             str[index]= str[i];
             index = index-1;
         }
+
     }
     return new String(str).trim();
+}
+    public static void main(String[] args) {
+        var u = new Replace();
+		char[] chars = "Mr John  Smith      ".toCharArray();
+		System.out.println(u.urlify(chars, 14));
+        
+            
+    }
 }
