@@ -30,6 +30,8 @@ public class Main {
                 j++;
             }
         }
+         if (i < m || j < n) 
+        count++; 
         return true;
     }
     
