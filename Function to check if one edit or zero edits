@@ -1,0 +1,48 @@
+public class Main {
+    
+    public boolean isEdit(String s1, String s2){
+        int m = s1.length();
+        int n = s2.length();
+        if(s1.equals(s2)){
+            return false;
+        }
+        if(m-n>1 || n-m >1 || m==0||n==0|| s1== null || s2==null){
+            return false;
+        }
+        int i=0, j=0;
+        int count=0;
+        while(i<m && j<n){
+            if(s1.charAt(i)!=s2.charAt(j)){
+                if(count ==1){
+                    return false;
+                }
+                if(m>n){
+                    i++;
+                }else if(m<n){
+                    j++;
+                }else{
+                    i++;
+                    j++;
+                }
+                count++;
+            }else{
+                i++;
+                j++;
+            }
+        }
+        return true;
+    }
+    
+    public static void main(String[] args) {
+        var u = new Main();
+        String s1 = "ple";
+        String s2 = "pale";
+        String s3 = "geeks";
+        String s4 = "geeks";
+        String s5 = "peaks";
+        String s6 = "geeks";
+        System.out.println(u.isEdit(s1, s2));
+        System.out.println(u.isEdit(s3, s4));
+        System.out.println(u.isEdit(s5, s6));
+    }
+}
