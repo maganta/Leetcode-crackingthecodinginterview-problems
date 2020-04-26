@@ -1,0 +1,38 @@
+/* Program to perform basic string compression using the counts of repeated characters */
+
+public class Main {
+    
+    public String stringCompression(String str){
+        StringBuilder sb = new StringBuilder();
+        int count =1, currCharIndex =0;
+      for(int i = 1; i<str.length(); i++){
+          if(str.charAt(currCharIndex)==str.charAt(i)){
+              count++;
+          }else{
+              sb.append(str.charAt(currCharIndex));
+              sb.append(count);
+              count = 1;
+          }
+          currCharIndex = i;
+      }
+        sb.append(str.charAt(currCharIndex));
+        sb.append(count);
+        String str2 = sb.toString();
+        if(str.length() == str2.length()){
+            return str;
+        }else{
+            return str2;
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        var u = new Main();
+        String s1 = "aaaa";
+        String s2 = "aaba";
+        String s3 = "aabbbccccccd";
+        System.out.println(u.stringCompression(s1));
+        System.out.println(u.stringCompression(s2));
+        System.out.println(u.stringCompression(s3));
+    }
+}
