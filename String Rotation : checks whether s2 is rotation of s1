@@ -1,0 +1,58 @@
+// "static void main" must be defined in a public class.
+public class Main {
+    public boolean isStringRotated(String s1, String s2){
+        if(s1.length() != s2.length() || s1.equals(s2)){
+            return false;
+        }
+        if(s1 == null && s2== null){
+            return false;
+        }
+        
+        int indexOfFirstSub =0 ;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb3 = new StringBuilder();
+        
+        for(int i =0; i<s2.length(); i++){
+            if(s1.charAt(0) == s2.charAt(i)){
+                indexOfFirstSub = i;
+                break;
+            }
+        }
+        for(int i = indexOfFirstSub; i<s2.length(); i++){
+            sb.append(s2.charAt(i));
+        }
+        String s3 = sb.toString();
+        
+        if(s1.indexOf(s3)<0){
+            return false;
+        }
+        
+        for(int i = sb.length(); i<s1.length(); i++){
+            sb2.append(s1.charAt(i));
+        }
+        String s4 = sb2.toString();
+        for(int i=0; i<indexOfFirstSub; i++){
+            sb3.append(s2.charAt(i));
+        }
+        String s5 = sb3.toString();
+        if(s4.equals(s5)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public static void main(String[] args) {
+        String s1 = "waterbottle";
+        String s2 = "erbottlewat";
+        String s3 = "race";
+        String s4 = "race";
+        String s5 = "race";
+        String s6 = "ceeera";
+        var u = new Main();
+        System.out.println(u.isStringRotated(s1, s2));
+        System.out.println(u.isStringRotated(s3, s4));
+        System.out.println(u.isStringRotated(s5, s6));
+    }
+}
