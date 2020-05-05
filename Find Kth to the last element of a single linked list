@@ -1,0 +1,50 @@
+// Time O(n)
+import java.util.*; 
+public class Main {
+    static Node head;
+    static class Node{
+        int data;
+        Node next;
+       public Node(int d){
+            data = d;
+            next = null;
+        }
+    }
+    
+   public static int removeKthNode(Node head, int k){
+       if (head == null){
+           return 0;
+       }
+       int totalCount = 0;
+       int index;
+       int indexCount = 0;
+       Node currNode = head;
+       Node curr = head;
+       while(currNode != null){
+           totalCount++;
+           currNode = currNode.next;
+       }
+       index = totalCount - k;
+       if(k <= totalCount){
+       while(curr!=null){
+           if(indexCount == index){
+               return curr.data;
+           }
+           indexCount++;
+           curr = curr.next;
+       }   
+    }
+       return 0;
+   }
+    
+    public static void main(String[] args) {
+        Node start = new Node(1); 
+         start.next = new Node(12); 
+        start.next.next = new Node(10); 
+        start.next.next.next = new Node(13); 
+        start.next.next.next.next = new Node(14); 
+        start.next.next.next.next.next = new Node(20); 
+        start.next.next.next.next.next.next = new Node(21); 
+        System.out.print(removeKthNode(start, 1)); 
+    }
+}
