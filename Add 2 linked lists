@@ -1,0 +1,130 @@
+/** You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself. */
+
+
+
+
+Time Complexity O(n)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head1 = l1;
+        ListNode head2 = l2;
+        ListNode resultHead = new ListNode();
+        ListNode head3 = resultHead;
+        int carry =0;
+        while (head1 != null || head2 !=null){
+            int x = (head1!=null)? head1.val:0;
+            int y = (head2!=null)? head2.val:0;
+            int sum = carry+ x + y;
+            carry = 0;
+            if(sum> 9){
+                carry = 1;
+            }
+            
+            head3.next = new ListNode(sum % 10); 
+            head3 = head3.next;
+            
+            if (head1 != null){
+            head1 = head1.next;
+            }
+            
+            if (head2 != null){
+            head2 = head2.next;
+            }
+            
+        }
+        
+        if(carry == 1){
+            head3.next = new ListNode(carry);
+        }
+        
+        return resultHead.next;
+        
+        
+    }
+     
+}
+
+
+-----------------------------------------------
+
+Time Limit exceeded solution
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if(length(l1) < length(l2)){
+            appendzeroes(l1, length(l2) - length(l1));
+        }
+        if(length(l2) < length(l1)){
+            appendzeroes(l2, length(l1) - length(l2));
+        }
+        
+        ListNode head1 = l1;
+        ListNode head2 = l2;
+        ListNode resultHead = new ListNode();
+        ListNode head3 = resultHead;
+        int carry =0;
+        int sum =0;
+        while (head1 != null && head2 !=null){
+            sum = carry+ head1.val +head2.val;
+            carry =0;
+            if(sum> 9){
+                carry = 1;
+            }
+            
+            head3.next = new ListNode(sum % 10);
+            head1 = head1.next;
+            head2 = head2.next;
+            head3 = head3.next;
+            
+        }
+        
+        if(carry == 1){
+            head3.next = new ListNode(carry);
+        }
+        
+        return resultHead.next;
+        
+        
+    }
+     
+    
+    public static int length(ListNode a){
+        int count = 0;
+        ListNode head = a;
+        while(head != null){
+            count++;
+            head = head.next;
+        }
+        return count;
+    }
+    
+    public static ListNode appendzeroes(ListNode a, int diff){
+        while(diff >0){
+            a.next= new ListNode(0);
+            a = a.next;
+        }
+        return a;   
+    }
+}
