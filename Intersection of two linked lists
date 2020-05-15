@@ -1,0 +1,40 @@
+/**Write a program to find the node at which the intersection of two singly linked lists begins. */
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode pA = headA;
+        ListNode pB = headB;
+        
+       while(pA!=pB){
+           if(pA!= null){
+               pA= pA.next;
+           }else if(pA==null){
+               pA= headB;
+           }
+           if(pB!= null){
+               pB= pB.next;
+           }else if(pB==null){
+               pB= headA;
+           }
+           
+       }
+        if(pA==pB && pA!=null){
+            return pA;
+        }else{
+            return null;
+        }
+    }
+}
