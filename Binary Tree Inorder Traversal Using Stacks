@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    ArrayList<Integer> result = new ArrayList<>();
+    Stack<TreeNode> stk = new Stack<>();
+    public List<Integer> inorderTraversal(TreeNode root) {
+       TreeNode currentNode = root;
+        while(currentNode!=null || !stk.isEmpty()){
+            while(currentNode!=null){
+                stk.push(currentNode);
+                currentNode = currentNode.left;
+            }
+            currentNode = stk.pop();
+            result.add(currentNode.val);
+            currentNode = currentNode.right;
+        }
+        return result;
+        
+    }
+}
