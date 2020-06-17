@@ -1,0 +1,43 @@
+/** Given the root node of a binary search tree (BST) and a value. 
+You need to find the node in the BST that the node's value equals the given value. 
+Return the subtree rooted with that node. If such node doesn't exist, you should return NULL. */
+
+
+
+/** Takes O(n) time for search operation. Since, we visit each node only once */
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    Stack<TreeNode> s = new Stack<>();
+    public TreeNode searchBST(TreeNode root, int val) {
+        
+        while(!s.isEmpty() || root!=null){
+            while(root!=null){
+                s.push(root);
+                root = root.left;
+            }
+            TreeNode curr = s.pop();
+            if(curr.val == val){
+                return curr;
+            }
+            root = curr.right;
+        }
+        return null;
+        
+        
+    }
+}
