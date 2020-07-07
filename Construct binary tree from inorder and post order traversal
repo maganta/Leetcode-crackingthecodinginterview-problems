@@ -1,0 +1,60 @@
+/** Given inorder and postorder traversal of a tree, construct the binary tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+
+For example, given
+
+inorder = [9,3,15,20,7]
+postorder = [9,15,7,20,3]
+*/
+
+
+
+/** using stack and hashmap */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if(inorder.length==0|| postorder.length==0 || inorder.length != postorder.length){
+            return null;
+        }
+        Stack<TreeNode> s = new Stack<>();
+        Map<Integer, Integer> position = new HashMap<>();
+        
+        for(int i=0; i<inorder.length; i++){
+            position.put(inorder[i], i);
+        } 
+        TreeNode root = new TreeNode(postorder[postorder.length-1]);
+        s.push(root);
+        
+        for(int i = postorder.length-2; i>=0; i--){
+            int value = postorder[i];
+            TreeNode node = new TreeNode(value);
+            if(position.get(value)>position.get(s.peek().val)){
+                s.peek().right= node;
+            }else{
+                TreeNode curr = null;
+                while(!s.isEmpty() && position.get(value)<position.get(s.peek().val)){
+                    curr = s.pop();
+                }
+                curr.left = node;
+            }
+            s.push(node);
+        }
+        return root;
+    }
+}
