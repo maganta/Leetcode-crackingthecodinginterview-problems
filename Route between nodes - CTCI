@@ -1,0 +1,30 @@
+/** Route between nodes */
+
+
+
+
+public boolean routeBetweenNodes(Graph g, Node s, Node e){
+    if(s==e){
+        return true;
+    }
+    Queue<Node> q = new LinkedList<>();
+    Set<Node> visited = new HashSet<>();  
+    q.add(s);
+    visited.add(s);
+    
+    while(!q.isEmpty()){
+        Node curr = q.poll();
+        for(Node neighbor : curr.neighbors){
+            if(neighbor == e){
+                return true;
+            }else{
+                if(!.visited.contains(neighbor)){
+                    visited.add(neighbor);
+                    q.add(neighbor);
+                }
+            }
+        }
+    }
+    
+    return false;
+}
