@@ -1,0 +1,22 @@
+
+public TreeNode successor(TreeNode root, TreeNode p){
+    Queue<TreeNode> s = new LinkedList<>();
+    
+    while(!s.isEmpty() || root!=null){
+        while(root!=null){
+            s.push(root);
+            root = root.left;
+        }
+        TreeNode curr = s.pop();
+        root = curr.right;
+        if(curr==p){
+            if(root!=null){
+                return root;
+            }else{
+                TreeNode next = s.peek();
+                return next;
+            }
+        }
+    }
+    return root;
+}
