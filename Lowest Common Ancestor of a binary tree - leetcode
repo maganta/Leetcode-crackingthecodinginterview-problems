@@ -1,0 +1,69 @@
+/** Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+Given the following binary tree:  root = [3,5,1,6,2,0,8,null,null,7,4]
+
+
+ 
+
+Example 1:
+
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+Example 2:
+
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+Output: 5 */
+
+
+
+
+
+/**  Time : O(n)*/
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    ArrayList<TreeNode> p1 = new ArrayList<>();
+    ArrayList<TreeNode> q1 = new ArrayList<>();
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (!printPath(root, p, p1) || !printPath(root, q, q1)) { 
+          return null;
+        } 
+        int i; 
+        for (i = 0; i < p1.size() && i < q1.size(); i++) { 
+              
+            if (!p1.get(i).equals(q1.get(i))) {
+                break; 
+            }
+        }
+  
+        return p1.get(i-1); 
+        
+    }
+    
+    public boolean printPath(TreeNode root, TreeNode node, ArrayList<TreeNode> path){
+        if(root==null){
+            return false;
+        }
+        path.add(root);
+    
+        if(root==node || printPath(root.left,node, path)||printPath(root.right,node,path))         {
+            return true;
+        }
+        path.remove(path.size()-1);
+        return false;
+            
+        }
+    
+}
