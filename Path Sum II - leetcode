@@ -1,0 +1,79 @@
+/**Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+
+Note: A leaf is a node with no children.
+
+Example:
+
+Given the below binary tree and sum = 22,
+
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \    / \
+7    2  5   1
+Return:
+
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]*/
+
+
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<Integer> lst = new ArrayList<>();
+        List<List<Integer>> all = new ArrayList<>();
+        if(root == null){
+            return all;
+        }
+        
+        createList(root, sum, 0, lst, all);
+        return all;
+        
+    }
+    
+    public void createList(TreeNode n, int sum, int currentSum, List<Integer> lst, List<List<Integer>> all){
+        if(n == null){
+            return;
+        }
+        lst.add(n.val);
+        
+        currentSum+=n.val;
+        
+        if(n.left==null && n.right==null && currentSum==sum){
+            all.add(new ArrayList<>(lst));
+        }else{
+        createList(n.left, sum, currentSum, lst, all);
+        createList(n.right, sum, currentSum, lst, all);
+        }
+        
+        lst.remove(lst.size()-1);
+        
+    }
+}
