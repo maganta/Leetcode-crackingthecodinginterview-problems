@@ -1,0 +1,85 @@
+/**Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+
+Example 1:
+
+Given 1->2->3->4, reorder it to 1->4->2->3.
+Example 2:
+
+Given 1->2->3->4->5, reorder it to 1->5->2->4->3.*/
+
+
+
+
+
+
+
+
+
+/**TC: O(n) */
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+         if (head == null || head.next == null || head.next.next == null) {
+            return;
+        }
+        
+        ListNode slow= head;
+        ListNode fast= head;
+        
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        ListNode n1= head;
+        ListNode n2 = reverse(slow.next);;
+        slow.next=null;
+        
+        
+        ListNode res = new ListNode();
+        ListNode temp = res;
+        while(n1!=null || n2!=null){
+            if(n1!=null){
+                temp.next = n1;
+                temp= temp.next;
+                n1 = n1.next;
+                
+            }
+             if(n2!=null){
+                temp.next = n2;
+                temp= temp.next;
+                n2 = n2.next;
+                
+            }
+            
+        }
+        head = res.next;
+        
+    }
+    
+    
+    public ListNode reverse(ListNode n){
+        ListNode prev= null;
+        ListNode curr = n;
+        ListNode next;
+        while(curr!=null){
+            next = curr.next;
+            curr.next= prev;
+            prev= curr;
+            curr= next;
+        }
+        return prev;
+    }
+}
