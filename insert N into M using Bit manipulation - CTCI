@@ -1,0 +1,33 @@
+/**We are given two numbers n and m, and two-bit positions, i and j. Insert bits of m into n starting from j to i. 
+We can assume that the bits j through i have enough space to fit all of m. That is, if m = 10011, you can assume that there are at least 5 bits between j and i. 
+You would not, for example, have j = 3 and i = 2, because m could not fully fit between bit 3 and bit 2.*/
+
+
+
+
+// "static void main" must be defined in a public class.
+public class Main {
+    
+    static int update (int n, int m, int i, int j){
+        int allones = ~0;
+        int left = allones<<(j+1);
+        int right = allones >> (i-1);
+        int mask = left | right;
+        
+        int nclear = n & mask;
+        int mshifted = m<<i;
+        return (nclear | mshifted);
+            
+    }
+    
+    public static void main(String[] args) {
+        int n = 1024;  
+          
+        // in Binary M= 10011 
+        int m = 19;    
+          
+        int i = 2, j = 6; 
+       
+        System.out.println(update(n,m,i,j));
+    }
+}
